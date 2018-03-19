@@ -88,5 +88,19 @@ router.post('/products', (req, res) => {
  
 })
 
+// Update (Put)
+
+router.put('/products/:id', (req, red) => {
+    res.send('updating now')
+    
+});
+
+
+//delete (DELETE)
+
+router.delete('/products/:id', (req, red) => {
+    res.send('Deleting something right now')
+});
+
 
 module.exports = router; // like export default 
