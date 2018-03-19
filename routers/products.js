@@ -90,7 +90,7 @@ router.post('/products', (req, res) => {
 
 // Update (Put)
 
-router.put('/products/:id', (req, red) => {
+router.put('/products/:id', (req, res) => {
     res.send('updating now')
     
 });
@@ -98,8 +98,19 @@ router.put('/products/:id', (req, red) => {
 
 //delete (DELETE)
 
-router.delete('/products/:id', (req, red) => {
-    res.send('Deleting something right now')
+router.delete('/products/:id', (req, res) => {
+    const {id } = req.params;
+    Product.findByIdAndRemove(id)
+           .then(response => {
+               res.status(200).json({
+                   msg: 'successfully delted'
+               })
+           })
+           .catch(err => {
+               res.status(500).json({
+                   msg: 'something done broke'
+               })
+           })
 });
 
 
