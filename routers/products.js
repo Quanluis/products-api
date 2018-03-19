@@ -91,7 +91,22 @@ router.post('/products', (req, res) => {
 // Update (Put)
 
 router.put('/products/:id', (req, res) => {
-    res.send('updating now')
+    const {id } = req.params;
+    const update = {
+        name: 'Update name'
+    };
+    Product.findByIdAndUpdate(id,update)
+           .then(response => {
+                res.status(200).json({
+                    msg: "YOU HAVE BEEN UPDATED"
+                });
+           })
+           .catch(err => {
+               res.status(500).json({
+                   msg: "BROKE!!!!!"
+               });
+
+           })
     
 });
 
