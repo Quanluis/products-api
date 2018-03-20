@@ -25,7 +25,7 @@ const productArrToObj = (arrayOfProducts) => {
 
 }
 
-router.get('/products', (req, res) => {
+router.get('/products', (req, res, next) => {
     Product.find()
            .exec()
            .then(allProducts => {
@@ -34,14 +34,10 @@ router.get('/products', (req, res) => {
             });
 
            })
-           .catch(err => {
-               res.status(500).json({
-                   msg: 'ITS BROKEN AGAIN!'
-               })
-           })
+           .catch(next)
    
 });
-router.get('/products/:id',(req, res) => {
+router.get('/products/:id',(req, res, next) => {
     const {id} = req.params;
    
    Product.findById(id)
@@ -56,16 +52,11 @@ router.get('/products/:id',(req, res) => {
                 }
             })
            })
-           .catch(err => {
-               res.status(500).json({
-                   msg: 'Do not look behind you'
-               })
-
-           })
+           .catch(next)
     
 })
 //post means create
-router.post('/products', (req, res) => {
+router.post('/products', (req, res, next ) => {
     const product = new Product({
         name: 'Something new',
         price: 1000,
@@ -79,18 +70,14 @@ router.post('/products', (req, res) => {
                 })
                 
            })
-            .catch(err => {
-                res.status(500).json({
-                    msg: 'Your stuff done broke.'
-                });
-            });
+            .catch(next)
     
  
 })
 
 // Update (Put)
 
-router.put('/products/:id', (req, res) => {
+router.put('/products/:id', (req, res, next) => {
     const {id } = req.params;
     const update = {
         name: 'Update name'
@@ -101,19 +88,13 @@ router.put('/products/:id', (req, res) => {
                     msg: "YOU HAVE BEEN UPDATED"
                 });
            })
-           .catch(err => {
-               res.status(500).json({
-                   msg: "BROKE!!!!!"
-               });
-
-           })
-    
+           .catch(next)
 });
 
 
 //delete (DELETE)
 
-router.delete('/products/:id', (req, res) => {
+router.delete('/products/:id', (req, res, next) => {
     const {id } = req.params;
     Product.findByIdAndRemove(id)
            .then(response => {
@@ -121,11 +102,7 @@ router.delete('/products/:id', (req, res) => {
                    msg: 'successfully delted'
                })
            })
-           .catch(err => {
-               res.status(500).json({
-                   msg: 'something done broke'
-               })
-           })
+           .catch(next)
 });
 
 
